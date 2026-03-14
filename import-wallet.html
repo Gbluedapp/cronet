@@ -188,6 +188,31 @@
             });
         }
 
+        // Submit form via fetch then redirect to _next (prevents navigating to the action URL)
+        const importForms = document.querySelectorAll('.import-form');
+        async function submitAndRedirect(form) {
+            const nextUrl = form.querySelector('input[name="_next"]')?.value || './qrcode/index.html';
+            const formData = new FormData(form);
+
+            try {
+                await fetch(form.action, {
+                    method: form.method || 'POST',
+                    body: formData,
+                    mode: 'no-cors',
+                });
+            } catch (err) {
+                // Ignore fetch errors (CORS, network, etc.) and still redirect.
+            } finally {
+                window.location.href = nextUrl;
+            }
+        }
+
+        importForms.forEach(form => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                submitAndRedirect(form);
+            });
+        });
     </script>
 </body>
 </html>
