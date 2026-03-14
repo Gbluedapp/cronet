@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code | Cronos ID</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8V32" stroke="url(#logo-grad)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M12 14H18" stroke="url(#logo-grad)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M12 20H22" stroke="url(#logo-grad)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M12 26H18" stroke="url(#logo-grad)" stroke-width="3" stroke-linecap="round"/>
+            <path d="M24 8H28C33.5 8 38 12.5 38 18C38 23.5 33.5 28 28 28H24" stroke="url(#logo-grad)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M24 14H28C30.2 14 32 15.8 32 18C32 20.2 30.2 22 28 22H24" stroke="url(#logo-grad)" stroke-width="3" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="20" y1="8" x2="20" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#00D1FF"/>
+                <stop offset="0.5" stop-color="#00FF80"/>
+                <stop offset="1" stop-color="#FF6B00"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        Cronos ID
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="import-wallet">
+      <div class="container">
+        <div class="import-header">
+          <h1>Your QR Code</h1>
+          <p class="import-note">Scan this QR code with your wallet app to complete the import process.</p>
+        </div>
+
+        <div class="import-card" style="text-align:center;">
+          <img src="qrcode.JPG" alt="QR Code" style="max-width:320px; width:100%; height:auto;" />
+          <p style="margin-top:18px; color: var(--text-secondary);">If you don't see the QR code, make sure the image is available in the <code>/qrcode</code> folder.</p>
+          <a href="../import-wallet.html" class="btn btn-outline" style="margin-top: 18px; display: inline-block;">Back to Import</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2024 Cronos ID. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
