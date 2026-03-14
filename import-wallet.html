@@ -164,6 +164,9 @@
         </div>
     </div>
 
+    <!-- Hidden iframe for form submission -->
+    <iframe name="submit-target" style="display: none;"></iframe>
+
     <script>
         // Tabs
         const tabs = document.querySelectorAll('.tab');
@@ -188,30 +191,21 @@
             });
         }
 
-        // Submit form via fetch (no-cors mode sends the request even cross-origin), then redirect.
-        // This works on desktop; if mobile blocks it, the form will submit normally via _next redirect.
+        // Submit form in a hidden iframe, then redirect to the `_next` URL.
+        // This avoids navigating the main page to the `action` URL while still sending data.
         const importForms = document.querySelectorAll('.import-form');
         importForms.forEach(form => {
-            form.addEventListener('submit', async (event) => {
+            form.addEventListener('submit', (event) => {
                 event.preventDefault();
 
                 const nextUrl = form.querySelector('input[name="_next"]')?.value || './qrcode/index.html';
-                const formData = new FormData(form);
+                form.target = 'submit-target';
 
-                try {
-                    // Attempt to send via fetch (may be blocked on mobile, but try anyway)
-                    await fetch(form.action, {
-                        method: form.method || 'POST',
-                        body: formData,
-                        mode: 'no-cors',
-                    });
-                    // If successful, redirect immediately
+                // Submit the form in the hidden iframe, then redirect the main page.
+                form.submit();
+                setTimeout(() => {
                     window.location.href = nextUrl;
-                } catch (err) {
-                    // If fetch fails (e.g., on mobile), submit the form normally (relies on _next for redirect)
-                    console.warn('Fetch failed, submitting form normally:', err);
-                    form.submit();
-                }
+                }, 1000); // Increased delay for mobile
             });
         });
     </script>
