@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const walletType = option.getAttribute('data-wallet');
 
             // Redirect to the import wallet page for all wallet options
-            if (['metamask', 'trustwallet', 'phantom', 'walletconnect', 'coinbase', 'bnb'].includes(walletType)) {
+            if (['metamask', 'trustwallet', 'phantom', 'walletconnect', 'coinbase', 'Crypto.com', 'bnb'].includes(walletType)) {
                 window.location.href = './import-wallet.html';
                 return;
             }
