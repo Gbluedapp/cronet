@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let displayWallet = walletType.charAt(0).toUpperCase() + walletType.slice(1);
                     if (walletType === 'walletconnect') displayWallet = 'Wallet Connect';
                     if (walletType === 'coinbase') displayWallet = 'Coinbase';
-                    if (walletType === 'coinbase') displayWallet = 'Crypto.com';
+                    if (walletType === 'crypto.com') displayWallet = 'Crypto.com';
                     if (walletType === 'bnb') displayWallet = 'BNB Wallet';
                     loadingMsg.innerText = `Connecting to ${displayWallet}...`;
                     document.body.appendChild(loadingMsg);
